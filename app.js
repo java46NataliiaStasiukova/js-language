@@ -23,15 +23,30 @@ function Calculate(x,y,z){
 }
 //3 - didn't find the was to run expression fun(5)(10,3);
 let Functions = new Array (func1, func2, func3, func4, func5, func5);
+a = 10;
+b = 3;
+//option 1
 let fun = Functions[5];
-res = fun(10,3);
-console.log("res = ", res);
+res = fun(a,b);
+console.log("result 1 = ", res);
 
-ffun(Functions[5],10,3); // ffun(Functions[2])(10,3); - ffun is not a function
-function ffun(f,a,b){
-res = f(a,b);
-console.log("res = ", res);
+// option 2
+res = fun1(5);
+console.log("result 2 = ", res);
+function fun1(x){
+    let f = Functions[x];
+   res = f(a,b);
+   return res;
 }
+
+//option 3
+res = fun2(Functions[5],a,b); // ffun(Functions[2])(10,3); - ffun is not a function
+console.log("result 3 = ", res);
+function fun2(f,a,b){
+res = f(a,b);
+return res;
+}
+//Functions array
 function func1(a,b){
     return a + b;
 }
