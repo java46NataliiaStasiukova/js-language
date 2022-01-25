@@ -8,19 +8,22 @@ function myForEach(arr,func){
 function callback(n, i, ar){
     console.log(`array[${i}] = ${n}`);
 }
-array = [3,4,5,6,7,8];
-myForEach(array,callback);
-// or another callback for myForEach:
-let string = "";
-myForEach(array, n => string += n + "#");
-console.log(string);
 //2. myMap
-function myMap(arr,func){
-    myForEach(arr,func);
-}
-let arr2 = [];
-myMap(array, n => arr2.push(n * 2));
-console.log(arr2);
+function myMap(arr,callbackFunc){
+    const newAr = [];
+    myForEach(arr,(n, i, arr) => newAr.push(callbackFunc(n, i, arr)));
+    return newAr;
+    }
+    //Test
+    array = [3,4,5,6,7,8];
+    myForEach(array,callback);
+    // or another callback for myForEach:
+    let string = "";
+    myForEach(array, n => string += n + "#");
+    console.log(string);
+
+    const arr2 = myMap(array, n => n = n * 2);
+    console.log(arr2);
 
 
 
