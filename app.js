@@ -1,118 +1,55 @@
-//Homework-14
-//1.
-function myFilter(arr, callback){
-    const newAr = [];
-        myForEach(arr, function(n, i, arr){
-            let res = callback(arr[i], i, arr);
-            if(res == true) newAr.push(arr[i]);
-   });
-   return newAr;
+//Homework-15
+
+//Task 1.1:
+function displayOccurrences(array){
+    const res = {};
+array.forEach((r, i, a) => res[array[i]] === undefined ? res[array[i]] = 1 : res[array[i]] += 1);
+   Object.entries(res).sort((e1, e2) => {
+    const res = e2[1] - e1[1];
+    return res === 0 ? e1[0].localeCompare(e2[0]) : res;
+}).forEach(e => console.log(`${e[0]} -> ${e[1]}`));
 }
-function myForEach(arr,callbackFunc){
-    for(i = 0; i < arr.length; i++){
-        callbackFunc(arr[i], i, arr)
-    }
+//Task 1.2:
+function displayOccurrences2(array, functin){
+    const res = separatedFunc(array);
+   Object.entries(res).sort((e1, e2) => {
+    const res = e2[1] - e1[1];
+    return res === 0 ? e1[0].localeCompare(e2[0]) : res;
+}).forEach(e => console.log(`${e[0]} -> ${e[1]}`));
 }
-//Test:
-const array = [10, 12, 11, 3, -5, 7];
-let res = myFilter(array, (n, i, array) => n % 2 == 0);
-console.log(res);
-res = myFilter(array, (n, i, array) => n != -5);
-console.log(res);
-//2.
-function myReduce(arr, callback, initialResult){
-    if(initialResult == undefined) {
-        initialResult = arr[0];
-        arr = arr.slice(arr[0]);
-    }
-    let res = initialResult;
-    myForEach(arr, function(n, i, arr){
-        
-        res = callback(res, arr[i], i, arr);
-    });
-    return res;
+function separatedFunc(array){
+    let res = {};
+    array.forEach((r, i, a) => res[array[i]] === undefined ? res[array[i]] = 1 : res[array[i]] += 1);
+    return res;  
 }
 //Test:
-const array2 = [1, 4, 5, 7, 8];
-res = myReduce(array2, (cur, n, i, arr) => cur * n);
+const ar = ["lmn", "d", "d", "lmn", "a", "lmn", "a", "bc"];
+displayOccurrences(ar);
+displayOccurrences2(ar);
+
+
+//task 2:
+function countBy(array, callback){
+let arrKey = [];
+let res = {};
+for(i = 0; i < array.length; i++){
+    arrKey.push(callback(array[i], i, array));
+}
+arrKey.forEach((r, i, a) => res[arrKey[i]] === undefined ? res[arrKey[i]] = 1 : res[arrKey[i]] += 1);
 console.log(res);
-res = myReduce(array2, (cur, n, i, arr) => cur + n);
-console.log(res);
-//Objects for test:
-function createAddress(city, street){
-    return {city: city, street: street};
- }
- function createPerson(id, name, address){
-    return {id, name, address};
- }
- const persons = [
-    createPerson(123, "Vasya", createAddress("Rehovot", "Parshani")),
-    createPerson(124, "Olya", createAddress("Rehovot", "Pr. Plaut")),
-    createPerson(125, "Tolya", createAddress("Tel-Aviv", "Dizengoff")),
-    createPerson(126, "Sara", createAddress('Lod', 'Sokolov'))
- ]
- //3.
-function getPersonsCity(person,city1){
-    let str = "";
-    let result = [];
-    for(i =0; i < person.length; i++){
-        str = JSON.stringify(person[i]);
-        if(str.indexOf(city1) > 0){
-            result.push(str);
-        }
-    }
-    return result;
 }
 //Test:
-let ct = "Rehovot";
-res = getPersonsCity(persons, ct);
-console.log(res);
-//4.
-function movePersonsNoCityAtBeginning(person,city1){
-    let str = "";
-    let result = [];
-    for(i =0; i < person.length; i++){
-        str = JSON.stringify(person[i]);
-        str.indexOf(city1) < 0 ? result.unshift(str) : result.push(str);
-    }
-    return result;
-}
-//Test:
-res = movePersonsNoCityAtBeginning(persons, ct);
-console.log(res);
+const arr1 = [6.4, 7.3, 6.5, 6.9];
+countBy(arr1, (element) => Math.floor(element));
+
+const arr = ["abcd", "lmnr", "ab", "dddd"];
+countBy(arr, (element) => element.length);
+
+const arr2 = [{age: 25, id:123, name: "Vasya"}, {age: 50, id:123, name: "Vasya"},
+{age: 25, id:123, name: "Vasya"}, {age: 70, id:123, name: "Vasya"}];
+countBy(arr2, element => element.age);
 
 
-
-//1) Calculate IN ONE LINE OF CODE the name of Person living in Rehovot 
-//having maximal value of 'id'
-//(expected output: Olya) 
-
-
-//2*) Build IN ONE LINE OF CODE statistics of persons amount per city. 
-//The expected result is object: {Rehovot:2, 'Tel-Aviv':1,Lod:1}
-
-//Your solution add to existing HW at github or send directly by mail 
-//with subject 'HW-14 Additional'
-
-// -------------------------------
-// Write a functinon groupBy(array, .......), which has 
-// some callback parameters and performs the following actions
-// 1) breaks the array elements into groups by specified criteria
-// 2) for each group performs specified reduction operation
-// The same function would be able to show the following information 
-// when called with different callback parameters:
-// Example 1: { Rehovot: 2, 'Tel-Aviv': 1, Lod: 1 }
-// Example 2: { 
-//    Rehovot: [ 'Vasya', 'Olya' ],
-//    'Tel-Aviv': [ 'Tolya' ],
-//    Lod: [ 'Sara' ]
-// }
-//
-// Your tasks are:
-// - Decide which parameters must have such function
-// - Implement the function
-// - Implement the calls of this function implementing results of Example 1 and Example 2
-//------------------------------------
 
 
 
