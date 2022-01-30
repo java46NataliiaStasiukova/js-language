@@ -13,7 +13,7 @@ function myForEach(arr,callbackFunc){
         callbackFunc(arr[i], i, arr)
     }
 }
-//Test
+//Test:
 const array = [10, 12, 11, 3, -5, 7];
 let res = myFilter(array, (n, i, array) => n % 2 == 0);
 console.log(res);
@@ -23,7 +23,7 @@ console.log(res);
 function myReduce(arr, callback, initialResult){
     if(initialResult == undefined) {
         initialResult = arr[0];
-        arr[0] = 0;
+        arr = arr.slice(arr[0]);
     }
     let res = initialResult;
     myForEach(arr, function(n, i, arr){
@@ -32,11 +32,13 @@ function myReduce(arr, callback, initialResult){
     });
     return res;
 }
-//Test 
+//Test:
 const array2 = [1, 4, 5, 7, 8];
+res = myReduce(array2, (cur, n, i, arr) => cur * n);
+console.log(res);
 res = myReduce(array2, (cur, n, i, arr) => cur + n);
 console.log(res);
-//3.
+//Objects for test:
 function createAddress(city, street){
     return {city: city, street: street};
  }
@@ -49,6 +51,7 @@ function createAddress(city, street){
     createPerson(125, "Tolya", createAddress("Tel-Aviv", "Dizengoff")),
     createPerson(126, "Sara", createAddress('Lod', 'Sokolov'))
  ]
+ //3.
 function getPersonsCity(person,city1){
     let str = "";
     let result = [];
@@ -60,7 +63,7 @@ function getPersonsCity(person,city1){
     }
     return result;
 }
-
+//Test:
 let ct = "Rehovot";
 res = getPersonsCity(persons, ct);
 console.log(res);
@@ -74,9 +77,43 @@ function movePersonsNoCityAtBeginning(person,city1){
     }
     return result;
 }
-//Test
+//Test:
 res = movePersonsNoCityAtBeginning(persons, ct);
 console.log(res);
+
+
+
+//1) Calculate IN ONE LINE OF CODE the name of Person living in Rehovot 
+//having maximal value of 'id'
+//(expected output: Olya) 
+
+
+//2*) Build IN ONE LINE OF CODE statistics of persons amount per city. 
+//The expected result is object: {Rehovot:2, 'Tel-Aviv':1,Lod:1}
+
+//Your solution add to existing HW at github or send directly by mail 
+//with subject 'HW-14 Additional'
+
+// -------------------------------
+// Write a functinon groupBy(array, .......), which has 
+// some callback parameters and performs the following actions
+// 1) breaks the array elements into groups by specified criteria
+// 2) for each group performs specified reduction operation
+// The same function would be able to show the following information 
+// when called with different callback parameters:
+// Example 1: { Rehovot: 2, 'Tel-Aviv': 1, Lod: 1 }
+// Example 2: { 
+//    Rehovot: [ 'Vasya', 'Olya' ],
+//    'Tel-Aviv': [ 'Tolya' ],
+//    Lod: [ 'Sara' ]
+// }
+//
+// Your tasks are:
+// - Decide which parameters must have such function
+// - Implement the function
+// - Implement the calls of this function implementing results of Example 1 and Example 2
+//------------------------------------
+
 
 
 
